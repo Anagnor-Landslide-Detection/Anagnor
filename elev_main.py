@@ -1,14 +1,18 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from netCDF4 import Dataset
-data = Dataset('GMTED2010_15n015_00625deg.nc')
+data = Dataset('NLDAS.nc')
 
 from netCDF4 import date2index
 # from datetime import datetime
 # timeindex = date2index(datetime(2019, 1, 15),
 #                        data.variables['time'])
-
-# lat = data.variables['lat'][:]
+print(data.variables)
+lat = data.variables['latitude'][:]
+print(lat[0]-lat[1])
+print(lat[1]-lat[2])
+print(lat)
+quit()
 # lon = data.variables['lon'][:]
 # lon, lat = np.meshgrid(lon, lat)
 print(data.variables)

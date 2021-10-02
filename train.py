@@ -3,35 +3,49 @@ import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 import pandas as pd
 
-class FaceLandmarksDataset(Dataset):
-    """Face Landmarks dataset."""
+from datasetGenerator import CustomDataset
+from model import AnagnorModel
 
-    def __init__(self, csv_file, root_dir, transform=None):
-        df = pd.read_csv(csv_file)
-        print(df["event_time"])
 
-    def __len__(self):
-        return len(self.landmarks_frame)
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    def __getitem__(self, idx):
-        if torch.is_tensor(idx):
-            idx = idx.tolist()
+traindataset = CustomDataset()
+trainloader = torch.utils.data.DataLoader(traindataset, batch_size=8,
+                                         shuffle=False, num_workers=2)
 
-        img_name = os.path.join(self.root_dir,
-                                self.landmarks_frame.iloc[idx, 0])
-        image = io.imread(img_name)
-        landmarks = self.landmarks_frame.iloc[idx, 1:]
-        landmarks = np.array([landmarks])
-        landmarks = landmarks.astype('float').reshape(-1, 2)
-        sample = {'image': image, 'landmarks': landmarks}
 
-        if self.transform:
-            sample = self.transform(sample)
+net = AnagnorModel().to(device)
 
-        return sample2
+import torch.optim as optim
 
-csv_file = "nasa_global_landslide_catalog_point.csv"
-df = pd.read_csv(csv_file)
-print(df["event_date"])
-print(df["latitude"])
-print(df["longitude"]) 
+criterion = nn.MSELoss()
+optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
+
+for epoch in range(2):  # loop over the dataset multiple times
+
+    running_loss = 0.0
+    for i, data in enumerate(trainloader, 0):
+        # get the inputs; data is a list of [inputs, labels]
+        inputs, labels = data
+        inputs, labels = inputs.to(device), labels.to(device)
+        # zero the parameter gradients
+        optimizer.zero_grad()
+
+        # forward + backward + optimize
+        outputs = net(inputs)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
+
+        # print statistics
+        running_loss += loss.item()
+        if i%100==99:
+            torch.save(net.state_dict(), "./checkpoints/model_{epoch}_i.pth")
+
+        if i % 2000 == 1999:    # print every 2000 mini-batches
+            print('[%d, %5d] loss: %.3f' %
+                  (epoch + 1, i + 1, running_loss / 2000))
+            running_loss = 0.0
+
+print('Finished Training')
+torch.save(net.state_dict(), "./final_model.pth")

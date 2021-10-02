@@ -8,10 +8,10 @@ from datetime import datetime
 timeindex = date2index(datetime(2008, 1, 15),
                        data.variables['time'])
 
-lat = data.variables['lat'][:]
-lon = data.variables['lon'][:]
-lon, lat = np.meshgrid(lon, lat)
-print(data.variables)
+# lat = data.variables['lat'][:]
+# lon = data.variables['lon'][:]
+# lon, lat = np.meshgrid(lon, lat)
+# print(data.variables)
 temp_anomaly = data.variables['tempanomaly'][timeindex]
 # print(temp_anomaly)
 
