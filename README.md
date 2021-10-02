@@ -4,6 +4,9 @@ Anagnor is a publicly available system to provide the users a predictive analysi
 
 # Detailed Description 
 
+Watch YouTube Video!
+https://www.youtube.com/watch?v=u5XusYBq1h0
+
 [![Anagnor](https://cdn.discordapp.com/attachments/890152800036749335/894466314763108362/Screenshot_2021-10-04_at_12.25.25_AM.png)](https://www.youtube.com/watch?v=u5XusYBq1h0 "Anagnor")
 
 # Features and Algorithm
