@@ -2,6 +2,8 @@
 
 Anagnor is a publicly available system to provide the users a predictive analysis of occurrence of landslides all across the world. It's a predictive model that maps and analyses land features, global precipitation patterns, uneven heating of land and tectonic activities to predict the occurrence of landslides around the globe. An easy-to-use integrated system allows anyone to seamlessly access data from the past, the present, and the future. Anagnor also allows authorities and civilians to take advance action, helping minimise the damage caused by landslides around the world. It also acts as a tool to spread awareness and leads a path to further modification and worldwide usage.
 
+**Author** : Vir Malhotra, Shashwat Raj, Yash Jha, Garv Jain 
+
 # Detailed Description 
 
 Watch YouTube Video!
